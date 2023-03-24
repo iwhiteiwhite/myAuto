@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global, deprecated
 
-task.wait(2)
+task.wait(5)
 repeat task.wait() until game:IsLoaded()
 if game.PlaceId == 8304191830 then
 	repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
@@ -23,21 +23,7 @@ do
 	local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
 	if imgui then imgui:Destroy() end
 end
-getgenv().AutoLoadTP = true
-if getgenv().AutoLoadTP == true then
-	local exec = tostring(identifyexecutor())
 
-	if exec == "Synapse X" then
-		syn.queue_on_teleport(
-			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
-		)
-
-	else
-		queue_on_teleport(
-			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
-		)
-	end
-end
 
 local imgui = Instance.new("ScreenGui")
 local Prefabs = Instance.new("Frame")
