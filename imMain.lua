@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, deprecated
 
 --#region Main UI
 local ui_options = {
@@ -2020,3 +2021,287 @@ end
 
 --#endregion
 
+--#region Create UI
+
+getgenv().AutoLoadTP = true
+if getgenv().AutoLoadTP == true then
+	local exec = tostring(identifyexecutor())
+
+	if exec == "Synapse X" then
+		syn.queue_on_teleport(
+			"loadstring(game:HttpGet('127.0.0.1/anticrash/anticrash.lua'))()"
+		)
+
+	else
+		queue_on_teleport(
+			"loadstring(game:HttpGet('127.0.0.1/anticrash/anticrash.lua'))()"
+		)
+	end
+end
+
+
+do -- Example UI
+	local Window = library:AddWindow("Preview", {
+		main_color = Color3.fromRGB(41, 74, 122),
+		min_size = Vector2.new(500, 600),
+		toggle_key = Enum.KeyCode.RightShift,
+		can_resize = true,
+	})
+	
+  local AutoFarm = Window:AddTab("ฟาร์มอัตโนมัติ")
+	local ManualFarm = Window:AddTab("ฟาร์มแบบกำหนดเอง")
+	local partyFarm = Window:AddTab("ปาร์ตี้")
+	local otherSetting = Window:AddTab("ตั้งค่าทั่วไป")
+	local webhookSetting = Window:AddTab("เว็บฮุก")
+	
+  
+	do -- Elements
+
+		--#region Auto Farm UI
+		AutoFarm:AddLabel("เลือกโหมดที่ต้องการฟาร์ม")
+
+		local acriveFarm = AutoFarm:AddSwitch("เริ่มการฟาร์ม", function(bool)
+			print(bool)
+		end)
+		acriveFarm:Set(false)
+
+		local mymodeFuction = AutoFarm:AddDropdown("เลือกโหมดที่ต้องการฟาร์ม", function(object)
+			print(object)
+		end)
+
+		local myMode = {"เลือกโหมดที่ต้องการฟาร์ม","ฟาร์มสตอรี่","ฟาร์มเพชร","ฟาร์ม BattlePass","ฟาร์มเวลตัวละคร","ฟาร์มหอคอย","ฟาร์มผลไม้"}
+		for _,v in pairs(myMode) do
+			mymodeFuction:Add(tostring(v))
+		end
+		--local obj = Dropdown:Add("10")
+		--obj:Remove()
+		AutoFarm:AddLabel("ใส่จำนวนที่ต้องการฟาร์ม - เพชร - BattlePass - เลเวลตัวละคร - ชั้นหอคอย - ")
+		AutoFarm:AddTextBox("", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+
+		AutoFarm:AddLabel("ฟังชั่นเสริม")
+
+		local acriveMarcolag = AutoFarm:AddSwitch("มาโครแลค", function(bool)
+			print(bool)
+		end)
+		acriveMarcolag:Set(false)
+
+		local acriveWhiteScreen = AutoFarm:AddSwitch("จอขาว", function(bool)
+			print(bool)
+		end)
+		acriveWhiteScreen:Set(false)
+
+		-- AutoFarm:AddButton("Button", function()
+		-- 	print("Button clicked.")
+		-- end)
+
+		--#endregion
+
+		--#region ManualFarm Farm UI
+		ManualFarm:AddLabel("ฟาร์มแบบเลือกด่าน")
+
+		local acriveFarm = ManualFarm:AddSwitch("เริ่มการฟาร์ม", function(bool)
+			print(bool)
+		end)
+		acriveFarm:Set(false)
+
+		local replayFarm = ManualFarm:AddSwitch("เล่นซ้ำเมื่อจบด่าน", function(bool)
+			print(bool)
+		end)
+		replayFarm:Set(false)
+
+		local laveFarm = ManualFarm:AddSwitch("ออกแมพเมื่อจบด่าน", function(bool)
+			print(bool)
+		end)
+		laveFarm:Set(false)
+
+		ManualFarm:AddLabel("เลือกแมพ")
+		local mymapFuction = ManualFarm:AddDropdown("เลือกแมพที่ต้องการฟาร์ม", function(object)
+			print(object)
+		end)
+
+		local myMap = {"เลือกด่าน","Namek","Aot","Sand Village","Cover Kingdom","Cape Canavira"}
+		for _,v in pairs(myMap) do
+			mymapFuction:Add(tostring(v))
+		end
+
+		ManualFarm:AddLabel("เลือกเลเวล")
+		local mylevelFuction = ManualFarm:AddDropdown("เลือกเลเวล", function(object)
+			print(object)
+		end)
+		
+		local myLevel = {"เลือกเลเวล","level 1","level 2","level 3","level 4","level 5"}
+		for _,v in pairs(myLevel) do
+			mylevelFuction:Add(tostring(v))
+		end
+
+		ManualFarm:AddLabel("เลือกความยาก")
+		local myreditFuction = ManualFarm:AddDropdown("เลือกความยาก", function(object)
+			print(object)
+		end)
+
+		local myRedit = {"เลือกความยาก","Normal","Hard"}
+		for _,v in pairs(myRedit) do
+			myreditFuction:Add(tostring(v))
+		end
+
+		ManualFarm:AddLabel("ใส่เวฟที่ต้องการขาย")
+		ManualFarm:AddTextBox("wave ที่ต้องการขาย", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+
+		ManualFarm:AddLabel("ใส่เพชรที่ต้องการฟาร์ม")
+		ManualFarm:AddTextBox("เพชรที่จะฟาร์ม", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+		ManualFarm:AddLabel("ฟังชั่นเสริม")
+
+		local acriveMarcolag = ManualFarm:AddSwitch("มาโครแลค", function(bool)
+			print(bool)
+		end)
+		acriveMarcolag:Set(false)
+
+		local acriveWhiteScreen = ManualFarm:AddSwitch("จอขาว", function(bool)
+			print(bool)
+		end)
+		acriveWhiteScreen:Set(false)
+
+		local deleteMap = ManualFarm:AddSwitch("ลบแมพ", function(bool)
+			print(bool)
+		end)
+		deleteMap:Set(false)
+
+
+		--#endregion
+
+		--#region Party UI
+		partyFarm:AddLabel("ระบบปาร์ตี้")
+
+		local joinParty = partyFarm:AddSwitch("เข้าวาร์ปตามเพื่อน", function(bool)
+			print(bool)
+		end)
+		acriveFarm:Set(false)
+
+		local laveFarm = partyFarm:AddSwitch("เล่นซ้ำเมื่อจบด่าน", function(bool)
+			print(bool)
+		end)
+		laveFarm:Set(false)
+
+		local laveFarm = partyFarm:AddSwitch("ออกแมพเมื่อจบด่าน", function(bool)
+			print(bool)
+		end)
+		laveFarm:Set(false)
+
+		partyFarm:AddLabel("ระบบเข้าห้อง")
+
+		partyFarm:AddButton("ก็อปเลขห้อง", function()
+			print("Button clicked.")
+		end)
+
+		partyFarm:AddTextBox("ใส่ job id", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+		partyFarm:AddButton("เข้าห้อง", function()
+			print("Button clicked.")
+		end)
+
+		partyFarm:AddLabel("ระบบรีห้อง (หรือกด F5 เพื่อรีห้อง)")
+
+		partyFarm:AddButton("รีห้อง", function()
+			print("Button clicked.")
+		end)
+
+
+		--#endregion
+	
+		--#region otherSetting UI
+		otherSetting:AddLabel("การตั้งค่าระบบ")
+
+		local hideUI = otherSetting:AddSwitch("ซ่อน UI เมื่อเริ่มเกมส์", function(bool)
+			print(bool)
+		end)
+		hideUI:Set(false)
+
+		local claimQuest = otherSetting:AddSwitch("รับเควสอัตโนมัติ", function(bool)
+			print(bool)
+		end)
+		claimQuest:Set(false)
+
+		local antiAFK = otherSetting:AddSwitch("ป้องกัน AFK", function(bool)
+			print(bool)
+		end)
+		antiAFK:Set(false)
+
+		local clickTeleport = otherSetting:AddSwitch("คลิกเพื่อวาป (กด Ctrl + Click)", function(bool)
+			print(bool)
+		end)
+		clickTeleport:Set(false)
+
+		otherSetting:AddLabel("ระบบตั้งค่า fps")
+
+		otherSetting:AddTextBox("ใส่ ค่า fps", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+
+		otherSetting:AddLabel("ระบบรีห้อง (หรือกด F5 เพื่อรีห้อง)")
+		otherSetting:AddButton("รีห้อง", function()
+			print("Button clicked.")
+		end)
+
+		otherSetting:AddLabel("แก้บัค (Fix Bug)")
+		otherSetting:AddButton("กดเมื่อสคริปทำงานผิดปกติ", function()
+			print("Button clicked.")
+		end)
+
+		--#endregion
+
+		--#region webhookSetting UI
+		webhookSetting:AddLabel("การตั้งเว็บฮุกแจ้งเตือน")
+
+		webhookSetting:AddTextBox("ใส่ เว็บฮุก สำหรับการแจ้งเตือนปกติ", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+
+		webhookSetting:AddLabel("การตั้งเว็บฮุกจบงาน")
+		webhookSetting:AddTextBox("ใส่ เว็บฮุก สำหรับการแจ้งเตือนจบงาน", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+
+		webhookSetting:AddLabel("ตั้งค่า Discord")
+		webhookSetting:AddTextBox("ใส่ ไอดี Discord", function(text)
+			print(text)
+		end, {
+			["clear"] = false, -- Default: true (options are optional)
+		})
+
+		--#endregion
+
+	end
+
+	
+	webhookSetting:Show()
+	otherSetting:Show()
+	partyFarm:Show()
+	ManualFarm:Show()
+  AutoFarm:Show()
+
+	library:FormatWindows()
+
+--#endregion
+
+end
