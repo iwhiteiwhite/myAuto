@@ -2029,12 +2029,12 @@ if getgenv().AutoLoadTP == true then
 
 	if exec == "Synapse X" then
 		syn.queue_on_teleport(
-			"loadstring(game:HttpGet('127.0.0.1/anticrash/anticrash.lua'))()"
+			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
 		)
 
 	else
 		queue_on_teleport(
-			"loadstring(game:HttpGet('127.0.0.1/anticrash/anticrash.lua'))()"
+			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
 		)
 	end
 end
