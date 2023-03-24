@@ -1,5 +1,16 @@
 ---@diagnostic disable: undefined-global, deprecated
 
+task.wait(2)
+repeat task.wait() until game:IsLoaded()
+if game.PlaceId == 8304191830 then
+	repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+	repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("collection"):FindFirstChild("grid"):FindFirstChild("List"):FindFirstChild("Outer"):FindFirstChild("UnitFrames")
+else
+	repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+	game:GetService("ReplicatedStorage").endpoints.client_to_server.vote_start:InvokeServer()
+	getgenv().start_time = os.time()
+	repeat task.wait() until game:GetService("Workspace")["_waves_started"].Value == true
+end
 --#region Main UI
 local ui_options = {
 	main_color = Color3.fromRGB(41, 74, 122),
@@ -12,7 +23,6 @@ do
 	local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
 	if imgui then imgui:Destroy() end
 end
-
 getgenv().AutoLoadTP = true
 if getgenv().AutoLoadTP == true then
 	local exec = tostring(identifyexecutor())
@@ -2038,6 +2048,7 @@ end
 --#endregion
 
 --#region Create UI
+
 
 
 
