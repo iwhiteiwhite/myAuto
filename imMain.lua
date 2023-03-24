@@ -13,6 +13,22 @@ do
 	if imgui then imgui:Destroy() end
 end
 
+getgenv().AutoLoadTP = true
+if getgenv().AutoLoadTP == true then
+	local exec = tostring(identifyexecutor())
+
+	if exec == "Synapse X" then
+		syn.queue_on_teleport(
+			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
+		)
+
+	else
+		queue_on_teleport(
+			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
+		)
+	end
+end
+
 local imgui = Instance.new("ScreenGui")
 local Prefabs = Instance.new("Frame")
 local Label = Instance.new("TextLabel")
@@ -2023,21 +2039,6 @@ end
 
 --#region Create UI
 
-getgenv().AutoLoadTP = true
-if getgenv().AutoLoadTP == true then
-	local exec = tostring(identifyexecutor())
-
-	if exec == "Synapse X" then
-		syn.queue_on_teleport(
-			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
-		)
-
-	else
-		queue_on_teleport(
-			"loadstring(game:HttpGet('https://raw.githubusercontent.com/iwhiteiwhite/myAuto/main/imMain.lua'))()"
-		)
-	end
-end
 
 
 do -- Example UI
